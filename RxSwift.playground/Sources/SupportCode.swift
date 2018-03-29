@@ -38,7 +38,7 @@ public func exampleCompletable (of description : String, action : () -> ()){
 }
 
 public func exampleMaybe (of description : String, action : () -> ()){
-    print("\n--- Example Completable of:", description, "---")
+    print("\n--- Example of:", description, "---")
     action()
 }
 
@@ -46,6 +46,11 @@ public func delay (_ delay : TimeInterval, action : @escaping () -> ()){
     DispatchQueue.main.asyncAfter(deadline: .now() + delay){
         action()
     }
+}
+
+public func exampleTotal (of description : String, action : () -> ()){
+    print("\n--- Example of:", description, "---")
+    action()
 }
 
 

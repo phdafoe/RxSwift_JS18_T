@@ -1,5 +1,7 @@
 //: Please build the scheme 'RxSwiftPlayground' first
 import PlaygroundSupport
+PlaygroundPage.current.needsIndefiniteExecution = true
+
 import RxSwift
 
 //OPERADORES
@@ -318,8 +320,45 @@ example(of: "scan & buffer") {
     dartScore.onNext(87)
 }
 
-delay(0.3) {
-    <#code#>
+func sampleWithPublish(){
+    let interval = Observable<Int>.interval(1, scheduler: MainScheduler.instance).publish()
+    
+    interval.debug("1st").subscribe{ _ in
+        //print($0)
+    }
+    delay(2) {
+        _ = interval.connect()
+    }
+    delay(4) {
+        _ = interval.debug("2nd").subscribe{ _ in
+            //print($0)
+            }.dispose()
+    }
+}
+
+//sampleWithPublish()
+
+exampleTotal(of: "Total") {
+    
+    print(RxSwift.Resources.total)
+    
+    let object = NSObject()
+    
+    
+    
+    var disposeBag = DisposeBag()
+    print(RxSwift.Resources.total)
+    
+    let observable = Observable.just("Hello, world")
+    observable.subscribe(onNext:{ _ in
+        print(RxSwift.Resources.total)
+    }).disposed(by: disposeBag)
+    
+    disposeBag = DisposeBag()
+    
+    print(RxSwift.Resources.total)
+    
+    
 }
 
 
